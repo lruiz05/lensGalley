@@ -3,33 +3,46 @@
   <head>
     <title>eLife Lens</title>
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,400italic,600italic' rel='stylesheet' type='text/css'>
-    
+
     <link rel="stylesheet" type="text/css" media="all" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" />
 
     <!-- A combined lens.css will be generated in the bundling process -->
     <!-- While in development, separate links for each CSS file are added, so we don't need a source map -->
     <link href='lens.css' rel='stylesheet' type='text/css'/>
+
+    <!-- Here I added a css file with styles for map-->
+    <link rel="stylesheet" href="https://openlayers.org/en/v4.0.1/css/ol.css" type="text/css">
+    <!--<link rel="stylesheet" href="css/styles.css" type="text/css">-->
+
     <script src="lib/jquery.min.js"></script>
 
     <!-- MathJax Configuration -->
     <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        jax: ["input/TeX", "input/MathML","output/HTML-CSS"],
-        SVG: { linebreaks: { automatic: true }, EqnChunk: 9999  },
-        "displayAlign": "left",
-        styles: {".MathJax_Display": {padding: "0em 0em 0em 3em" },".MathJax_SVG_Display": {padding: "0em 0em 0em 3em" }}
+       MathJax.Hub.Config({
+         jax: ["input/TeX", "input/MathML","output/HTML-CSS"],
+         extensions: ["MathMenu.js","MathZoom.js", "CHTML-preview.js"],
+         "HTML-CSS": { linebreaks: { automatic: true }, EqnChunk: 9999 },
+         SVG: { linebreaks: { automatic: true }, EqnChunk: 9999  },
+         TeX: {
+           extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
+         },
+         "displayAlign": "left",
+         styles: {".MathJax_Display": {padding: "0em 0em 0em 3em" },".MathJax_SVG_Display": {padding: "0em 0em 0em 3em" },}
       });
     </script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="http://beta.mathjax.org/mathjax/latest/MathJax.js?config=MML_HTMLorMML-full"></script>
 
     <script src='lens.js'></script>
-    
-    <script>
-    
+
+    <!-- Here I added a javascript file-->
+    <script src="https://openlayers.org/en/v4.0.1/build/ol.js" type="text/javascript"></script>
+    <script src="lib/my_map.js" type="text/javascript"></script>
+    <script src="lib/my_script.js" type="text/javascript"></script>
+    <script type="text/javascript">
       // Little helper used to parse query strings from urls
       // --------
       //
-      
+
       var qs = function () {
         var query_string = {};
         var query = window.location.search.substring(1);
@@ -50,31 +63,24 @@
         }
         return query_string;
       } ();
-      
-      // This document gets loaded by default
-      // --------
-      
-      var documentURL = "https://s3.amazonaws.com/elife-cdn/elife-articles/00778/elife00778.xml";
-      
+
       $(function() {
-      
+
         // Create a new Lens app instance
         // --------
         //
         // Injects itself into body
-      
+
         var app = new window.Lens({
           document_url: qs.url ? decodeURIComponent(qs.url) : documentURL
         });
-      
-        app.start();
-      
-        window.app = app;
-      
-      });
-    
-    </script>
 
+        app.start();
+
+        window.app = app;
+
+      });
+    </script>
   </head>
   <body class="loading">
 
